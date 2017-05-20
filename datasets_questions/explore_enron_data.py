@@ -31,19 +31,49 @@ for person in enron_data.itervalues():
 
 print "Persons of Interest:", poi
 
-print "James Prentice Total Stock:", enron_data['PRENTICE JAMES']['total_stock_value']
+print "---"
 
-print "Wesley Colwell Emails to PICs:", enron_data['COLWELL WESLEY']['from_this_person_to_poi']
+# print "James Prentice Total Stock:", enron_data['PRENTICE JAMES']['total_stock_value']
+#
+# print "Wesley Colwell Emails to PICs:", enron_data['COLWELL WESLEY']['from_this_person_to_poi']
+#
+# print "Jeffrey Skully Exercises Stock Options:", enron_data['SKILLING JEFFREY K']['exercised_stock_options']
 
-print "Jeffrey Skully Exercises Stock Options:", enron_data['SKILLING JEFFREY K']['exercised_stock_options']
-
-quant_salary = 0
+known_salary = 0
 
 for person, data in enron_data.iteritems():
     if data['salary'] != 'NaN':
-        quant_salary = quant_salary + 1
+        known_salary = known_salary + 1
 
-print "People with Quantified Salary:", quant_salary
+print "People with Known Salary:", known_salary
+
+known_salary = 0
+
+for person, data in enron_data.iteritems():
+    if data['poi'] == 1 and data['salary'] != 'NaN':
+        known_salary = known_salary + 1
+
+print "POIs with Known Salary:", known_salary
+
+print "---"
+
+known_total_payments = 0
+
+for person, data in enron_data.iteritems():
+    if data['total_payments'] != 'NaN':
+        known_total_payments = known_total_payments + 1
+
+print "People with Known Total Payments:", known_total_payments
+
+known_total_payments = 0
+
+for person, data in enron_data.iteritems():
+    if data['poi'] == 1 and data['total_payments'] != 'NaN':
+        known_total_payments = known_total_payments + 1
+
+print "POIs with Known Total Payments:", known_total_payments
+
+print "---"
 
 known_emails = 0
 
@@ -52,3 +82,11 @@ for person, data in enron_data.iteritems():
         known_emails = known_emails + 1
 
 print "People with Known Emails:", known_emails
+
+known_emails = 0
+
+for person, data in enron_data.iteritems():
+    if data['poi'] == 1 and data['email_address'] != 'NaN':
+        known_emails = known_emails + 1
+
+print "POIs with Known Emails:", known_emails
